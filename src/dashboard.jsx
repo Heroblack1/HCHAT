@@ -12,12 +12,13 @@ function Dashboard() {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const API = import.meta.env.VITE_API_URL;
 
   // authenticating user otherwise known as protecting your route
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,10 +46,7 @@ function Dashboard() {
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await axios.put(
-        `http://localhost:5000/users/${user._id}`,
-        formData
-      );
+      const response = await axios.put(`${API}/users/${user._id}`, formData);
       console.log("Updated user:", response.data);
     } catch (error) {
       console.error(error);
@@ -69,7 +67,7 @@ function Dashboard() {
   // getting the list of users from the data base
   useEffect(() => {
     axios
-      .get("http://localhost:5000/home/getUsers")
+      .get(`${API}/home/getUsers`)
       .then((response) => {
         setList(response.data);
       })
@@ -100,11 +98,7 @@ function Dashboard() {
         <img src={logo} className="img" alt="" />
         <div className="circle">
           {user.image ? (
-            <img
-              src={`http://localhost:5000${user.image}`}
-              className="imgs"
-              alt="Profile"
-            />
+            <img src={`${API}${user.image}`} className="imgs" alt="Profile" />
           ) : (
             <span className="material-symbols-outlined">
               photo_camera_front
@@ -170,7 +164,7 @@ function Dashboard() {
           <div className="users">
             <div className="circ">
               <img
-                src={`http://localhost:5000${user.image}`}
+                src={`${API}${user.image}`}
                 className="imgs"
               />
             </div>
@@ -198,7 +192,7 @@ function Dashboard() {
                 <div className="circ">
                   {use.image ? (
                     <img
-                      src={`http://localhost:5000${use.image}`}
+                      src={`${API}${use.image}`}
                       className="imgs"
                       alt="Profile"
                     />

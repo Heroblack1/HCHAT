@@ -17,6 +17,8 @@ const Status = () => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
 
+  const API = import.meta.env.VITE_API_URL;
+
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -82,10 +84,7 @@ const Status = () => {
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await axios.put(
-        `http://localhost:5000/users/${user._id}`,
-        formData
-      );
+      const response = await axios.put(`${API}/users/${user._id}`, formData);
       console.log("Updated user:", response.data);
     } catch (error) {
       console.error(error);
@@ -105,7 +104,7 @@ const Status = () => {
     if (!token) return navigate("/login");
 
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -126,12 +125,9 @@ const Status = () => {
     const fetchStatuses = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(
-          "http://localhost:5000/home/dashboard/getStatuses",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await axios.get(`${API}/home/dashboard/getStatuses`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         if (res.data.success) {
           console.log("Fetched statuses:", res.data.statuses);
@@ -215,7 +211,7 @@ const Status = () => {
         payload.image = capturedImage;
       }
 
-      await axios.post("http://localhost:5000/home/dashboard/status", payload, {
+      await axios.post(`${API}/home/dashboard/status`, payload, {
         headers: { Authorization: `Bearer ${token}` },
         onUploadProgress: (e) => {
           if (e.total) {
@@ -230,12 +226,9 @@ const Status = () => {
 
       // ✅ Re-fetch immediately after upload
       const tokenn = localStorage.getItem("token");
-      const res = await axios.get(
-        "http://localhost:5000/home/dashboard/getStatuses",
-        {
-          headers: { Authorization: `Bearer ${tokenn}` },
-        }
-      );
+      const res = await axios.get(`${API}/home/dashboard/getStatuses`, {
+        headers: { Authorization: `Bearer ${tokenn}` },
+      });
       if (res.data.success) {
         setStatuses(res.data.statuses);
       }
@@ -508,11 +501,7 @@ const Status = () => {
         <img src={logo} className="img" alt="" />
         <div className="circle">
           {user.image ? (
-            <img
-              src={`http://localhost:5000${user.image}`}
-              className="imgs"
-              alt="Profile"
-            />
+            <img src={`${API}${user.image}`} className="imgs" alt="Profile" />
           ) : (
             <span className="material-symbols-outlined">
               photo_camera_front
@@ -616,7 +605,7 @@ const Status = () => {
                   >
                     <div className="status-circle">
                       <img
-                        src={`http://localhost:5000${u.image}`}
+                        src={`${API}${u.image}`}
                         className="status-user-img"
                       />
                       {theirStatuses.length > 0 && (
@@ -925,9 +914,7 @@ const Status = () => {
                 if (val.startsWith("data:")) return val;
                 if (val.startsWith("blob:")) return val;
                 if (val.startsWith("http")) return val;
-                return `http://localhost:5000${
-                  val.startsWith("/") ? "" : "/"
-                }${val}`;
+                return `${API}${val.startsWith("/") ? "" : "/"}${val}`;
               };
 
               // ✅ Text status

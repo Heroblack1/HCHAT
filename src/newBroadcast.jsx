@@ -13,6 +13,8 @@ const NewBroadcast = () => {
   const [broadcastDescription, setBroadcastDescription] = useState("");
   const [broadcastNameError, setBroadcastNameError] = useState("");
 
+  const API = import.meta.env.VITE_API_URL;
+
   const handleBroadcastNameChange = (e) => {
     setBroadcastName(e.target.value);
   };
@@ -30,7 +32,7 @@ const NewBroadcast = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +51,7 @@ const NewBroadcast = () => {
   // get list of all users function
   useEffect(() => {
     axios
-      .get("http://localhost:5000/home/getUsers")
+      .get(`${API}/home/getUsers`)
       .then((response) => {
         console.log(response.data);
         setList(response.data);
@@ -124,7 +126,7 @@ const NewBroadcast = () => {
         members: Object.values(broadcast),
       };
 
-      const endPoint = "http://localhost:5000/home/dashboard/newBroadcast";
+      const endPoint = `${API}/home/dashboard/newBroadcast`;
       const response = await axios.post(endPoint, broadcastData);
 
       if (response.data.status === "success" || response.status === 200) {
@@ -203,10 +205,7 @@ const NewBroadcast = () => {
               <div id="baro" key={member._id} class="dropdown-item" href="#">
                 <div className="users1">
                   <div className="circ1">
-                    <img
-                      src={`http://localhost:5000${member.image}`}
-                      className="imgs"
-                    />
+                    <img src={`${API}${member.image}`} className="imgs" />
                   </div>
                   <section className="nameAndMessage1">
                     <span className="orango">{member.nickName}</span>
@@ -258,10 +257,7 @@ const NewBroadcast = () => {
               <div className="bar" key={use._id}>
                 <div className="users1">
                   <div className="circ">
-                    <img
-                      src={`http://localhost:5000${use.image}`}
-                      className="imgs"
-                    />
+                    <img src={`${API}${use.image}`} className="imgs" />
                   </div>
                   <section className="nameAndMessage1">
                     <span className="orang">{use.nickName}</span>
@@ -291,7 +287,7 @@ const NewBroadcast = () => {
         <div className="bar" key={use._id}>
           <div className="users1">
             <div className="circ">
-              <img src={`http://localhost:5000${use.image}`} className="imgs" />
+              <img src={`${API}${use.image}`} className="imgs" />
             </div>
             <section className="nameAndMessage1">
               <span className="orang">{use.nickName}</span>

@@ -24,6 +24,8 @@ const Chat = ({ socket }) => {
   const canvasRef = useRef(null);
   const [showCallOptions, setShowCallOptions] = useState(false);
 
+  const API = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   const location = useLocation();
   const use = location.state;
@@ -39,7 +41,7 @@ const Chat = ({ socket }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,7 +73,7 @@ const Chat = ({ socket }) => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/home/dashboard/messages?userId=${user._id}&recipientId=${use._id}`
+          `${API}/home/dashboard/messages?userId=${user._id}&recipientId=${use._id}`
         );
         const directMessages = response.data;
         const directFiles = directMessages.filter((message) => message.file);
@@ -83,7 +85,7 @@ const Chat = ({ socket }) => {
         });
 
         const broadcastResponse = await axios.get(
-          `http://localhost:5000/home/dashboard/broadcastMessages?userId=${user._id}`
+          `${API}/home/dashboard/broadcastMessages?userId=${user._id}`
         );
         const broadcastMessages = broadcastResponse.data.filter(
           (message) =>
@@ -630,11 +632,7 @@ const Chat = ({ socket }) => {
           <span class="material-symbols-outlined">arrow_back</span>
           <div className="circ">
             {user.image ? (
-              <img
-                src={`http://localhost:5000${user.image}`}
-                className="imgs"
-                alt="Profile"
-              />
+              <img src={`${API}${user.image}`} className="imgs" alt="Profile" />
             ) : (
               <span className="material-symbols-outlined">
                 photo_camera_front
@@ -984,7 +982,7 @@ const Chat = ({ socket }) => {
         <div className="call-overlay">
           <div className="call-box">
             <img
-              src={`http://localhost:5000${use.image}`}
+              src={`${API}${use.image}`}
               alt="Profile"
               className="call-avatar"
             />
@@ -1026,7 +1024,7 @@ const Chat = ({ socket }) => {
         <div className="incoming-call-overlay">
           <div className="incoming-call-box">
             <img
-              src={`http://localhost:5000${use.image}`}
+              src={`${API}${use.image}`}
               alt="Caller"
               className="call-avatar"
             />

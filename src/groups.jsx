@@ -11,12 +11,14 @@ const Groups = () => {
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const API = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   // authenticating user otherwise known as protecting your route
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,12 +53,12 @@ const Groups = () => {
   // get list of all groups function
   useEffect(() => {
     axios
-      .get("http://localhost:5000/home/getGroups")
+      .get(`${API}/home/getGroups`)
       .then((response) => {
         const groups = response.data;
         const token = localStorage.getItem("token");
         axios
-          .get("http://localhost:5000/home/dashboard", {
+          .get(`${API}/home/dashboard`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -89,10 +91,7 @@ const Groups = () => {
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await axios.put(
-        `http://localhost:5000/users/${user._id}`,
-        formData
-      );
+      const response = await axios.put(`${API}/users/${user._id}`, formData);
       console.log("Updated user:", response.data);
     } catch (error) {
       console.error(error);

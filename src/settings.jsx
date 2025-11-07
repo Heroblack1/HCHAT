@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 const Settings = () => {
   const [user, setUser] = useState({});
 
+  const API = import.meta.env.VITE_API_URL;
+
   const navigate = useNavigate();
   // authenticating user otherwise known as protecting your route
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +43,7 @@ const Settings = () => {
       <div className="bara">
         <div className="users">
           <div className="circ">
-            <img className="imgs" src={`http://localhost:5000${user.image}`} />
+            <img className="imgs" src={`${API}${user.image}`} />
           </div>
           <section className="nameAndMessage">
             <span className="orang">{user.nickName}</span>

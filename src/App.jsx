@@ -33,6 +33,8 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const API = import.meta.env.VITE_API_URL;
+
 // connecting socketClient.io
 // connecting socketClient.io
 // connecting socketClient.io
@@ -42,7 +44,7 @@ function App() {
   const socket = useRef(null);
 
   useEffect(() => {
-    socket.current = socketClient("http://localhost:5000");
+    socket.current = socketClient(API);
   }, []);
 
   return (

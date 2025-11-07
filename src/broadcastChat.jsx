@@ -27,11 +27,13 @@ const BroadcastChat = ({ socket }) => {
   const location = useLocation();
   const broadcast = location.state?.broadcast;
 
+  const API = import.meta.env.VITE_API_URL;
+
   // authenticating the user
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -362,7 +364,7 @@ const BroadcastChat = ({ socket }) => {
           <div className="circ">
             {broadcast && broadcast.image ? (
               <img
-                src={`http://localhost:5000${broadcast.image}`}
+                src={`${API}${broadcast.image}`}
                 className="imgs"
                 alt="Profile"
               />

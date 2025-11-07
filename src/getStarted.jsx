@@ -9,6 +9,8 @@ function Getstarted() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const API = import.meta.env.VITE_API_URL;
+
   let formik = useFormik({
     initialValues: {
       email: "",
@@ -17,7 +19,7 @@ function Getstarted() {
     },
     onSubmit: (values) => {
       setIsLoading(true);
-      let endPoint = "http://localhost:5000/home/register";
+      let endPoint = `${API}/home/register`;
       let user = values;
       console.log(user);
       axios.post(endPoint, user).then((req) => {

@@ -9,6 +9,8 @@ function Login() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const API = import.meta.env.VITE_API_URL;
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -17,7 +19,7 @@ function Login() {
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const endPoint = "http://localhost:5000/home/login";
+        const endPoint = `${API}/home/login`;
         const user = values;
         const req = await axios.post(endPoint, user);
 

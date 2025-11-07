@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 const ChatSettings = () => {
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
+
   // authenticating user otherwise known as protecting your route
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -26,11 +26,13 @@ const GroupChat = ({ socket }) => {
   const location = useLocation();
   const group = location.state?.group;
 
+  const API = import.meta.env.VITE_API_URL;
+
   // authenticating the user
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/home/dashboard", {
+      .get(`${API}/home/dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,9 +49,7 @@ const GroupChat = ({ socket }) => {
   // getting group messages
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:5000/home/dashboard/groupMessages?groupId=${group._id}`
-      )
+      .get(`${API}/home/dashboard/groupMessages?groupId=${group._id}`)
       .then((response) => {
         const messages = response.data;
         const files = messages.filter((message) => message.file);
@@ -349,7 +349,7 @@ const GroupChat = ({ socket }) => {
           <div className="circ">
             {group.image ? (
               <img
-                src={`http://localhost:5000${group.image}`}
+                src={`${API}${group.image}`}
                 className="imgs"
                 alt="Profile"
               />
