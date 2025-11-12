@@ -4907,3 +4907,33 @@ button:disabled {
   border-radius: 100%;
   object-fit: cover;
 }
+/* 🔧 Fix links not clickable on mobile */
+.bard,
+.bario,
+.foota,
+.foot {
+  z-index: 10;
+}
+
+.baba {
+  position: relative;
+  z-index: 20;
+}
+
+.link,
+.link1 {
+  pointer-events: auto;
+  z-index: 5;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Prevent dropdown from blocking clicks when hidden */
+.sett {
+  display: none;
+  pointer-events: none;
+}
+.sett.active {
+  display: flex;
+  pointer-events: auto;
+}
