@@ -23,6 +23,7 @@ const Chat = ({ socket }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [showCallOptions, setShowCallOptions] = useState(false);
+  const [isOnline, setIsOnline] = useState(false);
 
   const API = import.meta.env.VITE_API_URL;
 
@@ -625,6 +626,22 @@ const Chat = ({ socket }) => {
       from: user._id,
     });
   };
+
+  // online status of users
+  useEffect(() => {
+    if (!socket.current) return;
+
+    socket.current.on("updateUserStatus", ({ userId, status }) => {
+      if (userId === use._id) {
+        setIsOnline(status === "online");
+      }
+    });
+
+    return () => {
+      socket.current.off("updateUserStatus");
+    };
+  }, [socket, use]);
+
   return (
     <div className="bodyy1">
       <div className="bario">
@@ -641,7 +658,9 @@ const Chat = ({ socket }) => {
           </div>
           <section className="nameAndMessage">
             <span className="orang">{use.nickName}</span>
-            <span className="whi">Online</span>
+            <span style={{ color: isOnline ? "green" : "gray" }}>
+              {isOnline ? "Online" : "Offline"}
+            </span>
           </section>
         </div>
         <div className="timeAndNumer">
