@@ -62,7 +62,7 @@ const Chat = ({ socket }) => {
   }
 
   useEffect(() => {
-    if (!user._id || !use._id) return;
+    if (!socket.current || !user._id || !use._id) return;
     const roomId = generateRoomId(user._id, use._id);
     socket.current.emit("joinRoom", roomId);
   }, [user, use, socket]);
@@ -307,6 +307,7 @@ const Chat = ({ socket }) => {
   };
 
   useEffect(() => {
+    if (!socket.current || !user._id) return;
     socket.current.emit("join", user._id);
   }, [socket, user]);
 
