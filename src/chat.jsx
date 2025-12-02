@@ -62,11 +62,18 @@ const Chat = ({ socket }) => {
   }
 
   useEffect(() => {
-    if (!socket.current || !user._id || !use._id) return;
-    const roomId = generateRoomId(user._id, use._id);
-    socket.current.emit("joinRoom", roomId);
-  }, [user, use, socket]);
+    if (!user._id || !use?._id) return;
 
+    const interval = setInterval(() => {
+      if (socket.current && socket.current.connected) {
+        const roomId = generateRoomId(user._id, use._id);
+        socket.current.emit("joinRoom", roomId);
+        clearInterval(interval);
+      }
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, [user, use]);
   // getting user messages from db
   // getting user messages
   // getting user messages
@@ -306,10 +313,23 @@ const Chat = ({ socket }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (!socket.current || !user._id) return;
+  //   socket.current.emit("join", user._id);
+  // }, [socket, user]);
+
   useEffect(() => {
-    if (!socket.current || !user._id) return;
-    socket.current.emit("join", user._id);
-  }, [socket, user]);
+    if (!user._id) return;
+
+    const interval = setInterval(() => {
+      if (socket.current && socket.current.connected) {
+        socket.current.emit("join", user._id);
+        clearInterval(interval);
+      }
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, [user]);
 
   // receiving the message from your server
   useEffect(() => {

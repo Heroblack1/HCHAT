@@ -69,11 +69,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/dashboard/chat"
           element={
             <ProtectedRoute>
-              <Chat socket={socket} />
+              {socket.current ? (
+                <Chat socket={socket} />
+              ) : (
+                <div>Connecting...</div>
+              )}
             </ProtectedRoute>
           }
         />
