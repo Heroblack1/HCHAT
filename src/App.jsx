@@ -40,11 +40,21 @@ const API = import.meta.env.VITE_API_URL;
 // connecting socketClient.io
 
 function App() {
+  const [socketReady, setSocketReady] = useState(false);
   const [count, setCount] = useState(0);
   const socket = useRef(null);
 
   useEffect(() => {
     socket.current = socketClient(API);
+
+    socket.current.on("connect", () => {
+      console.log("socket connected");
+      setSocketReady(true); // <-- triggers rerender
+    });
+
+    return () => {
+      socket.current.disconnect();
+    };
   }, []);
 
   return (
@@ -74,7 +84,7 @@ function App() {
           path="/dashboard/chat"
           element={
             <ProtectedRoute>
-              {socket.current ? (
+              {socketReady ? (
                 <Chat socket={socket} />
               ) : (
                 <div>Connecting...</div>
@@ -82,6 +92,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/dashboard/groupChat"
           element={
