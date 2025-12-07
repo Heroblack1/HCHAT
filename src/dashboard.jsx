@@ -215,16 +215,35 @@ function Dashboard() {
           filteredUsers.length > 0 ? (
             <div>
               {filteredUsers.map((use) => (
-                <div className="bar" key={use._id}>
-                  <div className="users1">
+                <Link
+                  className="bar"
+                  key={use._id}
+                  to={"/dashboard/chat"}
+                  state={use}
+                >
+                  <div className="users">
                     <div className="circ">
-                      <img src={`${API}${use.image}`} className="imgs" />
+                      {use.image ? (
+                        <img
+                          src={`${API}${use.image}`}
+                          className="imgs"
+                          alt="Profile"
+                        />
+                      ) : (
+                        <span className="material-symbols-outlined">
+                          photo_camera_front
+                        </span>
+                      )}
                     </div>
-                    <section className="nameAndMessage1">
+                    <section className="nameAndMessage">
                       <span className="orang">{use.nickName}</span>
+                      <span className="whi">Your message has been sent</span>
                     </section>
                   </div>
-                </div>
+                  <div className="timeAndNum">
+                    <div className="cir"></div>
+                  </div>
+                </Link>
               ))}
             </div>
           ) : (
