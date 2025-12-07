@@ -538,10 +538,15 @@ const Chat = ({ socket }) => {
       .getTracks()
       .forEach((track) => peerConnection.current.addTrack(track, stream));
 
-    // 3️⃣ Handle remote stream
     peerConnection.current.ontrack = (event) => {
-      if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = event.streams[0];
+      if (callType === "video") {
+        if (remoteVideoRef.current) {
+          remoteVideoRef.current.srcObject = event.streams[0];
+        }
+      } else {
+        if (remoteAudioRef.current) {
+          remoteAudioRef.current.srcObject = event.streams[0];
+        }
       }
     };
 
@@ -619,8 +624,14 @@ const Chat = ({ socket }) => {
       .forEach((track) => peerConnection.current.addTrack(track, stream));
 
     peerConnection.current.ontrack = (event) => {
-      if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = event.streams[0];
+      if (callType === "video") {
+        if (remoteVideoRef.current) {
+          remoteVideoRef.current.srcObject = event.streams[0];
+        }
+      } else {
+        if (remoteAudioRef.current) {
+          remoteAudioRef.current.srcObject = event.streams[0];
+        }
       }
     };
 
@@ -710,6 +721,12 @@ const Chat = ({ socket }) => {
             >
               📞 Voice Call
             </button>
+            <audio
+              ref={remoteAudioRef}
+              autoPlay
+              playsInline
+              style={{ display: "none" }}
+            />
             <button
               onClick={() => {
                 setShowCallOptions(false);
