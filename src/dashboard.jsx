@@ -221,7 +221,7 @@ function Dashboard() {
                   to={"/dashboard/chat"}
                   state={use}
                 >
-                  <div className="users">
+                  <div className="users1">
                     <div className="circ">
                       {use.image ? (
                         <img
