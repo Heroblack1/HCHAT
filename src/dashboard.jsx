@@ -127,13 +127,7 @@ function Dashboard() {
           )}
         </div>
       </nav>
-      <input
-        type="search"
-        placeholder="Search Participants..."
-        className="line"
-        value={search}
-        onChange={handleChangee}
-      />
+
       <section className="baba">
         <div className="threeDots">
           <div className="babaLink">
@@ -150,6 +144,7 @@ function Dashboard() {
               Broadcasts
             </Link>
           </div>
+
           <div className="menuContainer" ref={menuRef}>
             <button
               ref={buttonRef}
@@ -206,6 +201,14 @@ function Dashboard() {
             <div className="cir">1</div>
           </div>
         </div> */}
+
+        <input
+          type="search"
+          placeholder="Search Participants..."
+          className="line"
+          value={search}
+          onChange={handleChange}
+        />
 
         {search.length > 0 ? (
           filteredUsers.length > 0 ? (
