@@ -224,16 +224,6 @@ function Dashboard() {
                       <span className="orang">{use.nickName}</span>
                     </section>
                   </div>
-                  <div className="nameAndMessage1">
-                    <button
-                      className={`user-btn ${
-                        group[use._id] ? "remove-btn" : "add-btn"
-                      }`}
-                      onClick={() => handleAdd(use)}
-                    >
-                      {group[use._id] ? "Remove User" : "Add User"}
-                    </button>
-                  </div>
                 </div>
               ))}
             </div>
