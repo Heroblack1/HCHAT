@@ -37,6 +37,7 @@ const Chat = ({ socket }) => {
 
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
+  const remoteAudioRef = useRef(null);
   const peerConnection = useRef(null);
   // authenticating the user
   useEffect(() => {
