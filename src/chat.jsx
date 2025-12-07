@@ -572,7 +572,7 @@ const Chat = ({ socket }) => {
     if (!socket.current) return;
 
     socket.current.on("webrtc-offer", async ({ offer, from, type }) => {
-      setIncomingCall({ from, type });
+      setIncomingCall({ from, type, offer });
     });
 
     socket.current.on("webrtc-answer", async ({ answer }) => {
@@ -600,7 +600,7 @@ const Chat = ({ socket }) => {
 
   // handle accepting incoming calls
   const acceptCall = async () => {
-    const { from, type } = incomingCall;
+    const { from, type, offer } = incomingCall;
     setCallType(type);
     setIncomingCall(null);
     setInCall(true);
@@ -635,7 +635,7 @@ const Chat = ({ socket }) => {
     };
 
     await peerConnection.current.setRemoteDescription(
-      new RTCSessionDescription(incomingCall.offer)
+      new RTCSessionDescription(offer)
     );
 
     const answer = await peerConnection.current.createAnswer();
