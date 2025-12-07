@@ -45,15 +45,24 @@ function App() {
   const socket = useRef(null);
 
   useEffect(() => {
-    socket.current = socketClient(API);
+    const token = localStorage.getItem("token");
+    if (!token) return; // skip socket connection if not logged in
+
+    socket.current = socketClient(API, {
+      transports: ["websocket"],
+      auth: { token }, // if your server expects auth
+    });
 
     socket.current.on("connect", () => {
-      console.log("socket connected");
-      setSocketReady(true); // <-- triggers rerender
+      console.log("socket connected", socket.current.id);
+      setSocketReady(true);
+    });
+    socket.current.on("connect_error", (err) => {
+      console.error("Socket connect error:", err);
     });
 
     return () => {
-      socket.current.disconnect();
+      socket.current?.disconnect();
     };
   }, []);
 
@@ -63,6 +72,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/getStarted" element={<Getstarted />} />
         <Route path="/login" element={<Login />} />
+
         <Route
           path="/dashboard"
           element={

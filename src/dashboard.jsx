@@ -8,6 +8,7 @@ function Dashboard() {
   const [user, setUser] = useState({});
   const [list, setList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -64,6 +65,26 @@ function Dashboard() {
     return <p>Loading...</p>;
   }
 
+  // searching for users to add to group
+  // searching for users to add to group
+  // searching for users to add to group
+  const handleChangee = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+    console.log(list);
+  };
+
+  // matching the searh with the user names
+  // matching the searh with the user names
+  // matching the searh with the user names
+  const filteredUsers = list.filter((us) => {
+    return (
+      us &&
+      us.nickName &&
+      us.nickName.toLowerCase().includes(search.toLowerCase())
+    );
+  });
+
   // getting the list of users from the data base
   useEffect(() => {
     axios
@@ -105,7 +126,16 @@ function Dashboard() {
             </span>
           )}
         </div>
+
+        <input
+          type="search"
+          placeholder="Search Participants..."
+          className="line"
+          value={search}
+          onChange={handleChangee}
+        />
       </nav>
+
       <section className="baba">
         <div className="threeDots">
           <div className="babaLink">
@@ -178,6 +208,37 @@ function Dashboard() {
             <div className="cir">1</div>
           </div>
         </div> */}
+
+        {search.length > 0 ? (
+          filteredUsers.length > 0 ? (
+            <div>
+              {filteredUsers.map((use) => (
+                <div className="bar" key={use._id}>
+                  <div className="users1">
+                    <div className="circ">
+                      <img src={`${API}${use.image}`} className="imgs" />
+                    </div>
+                    <section className="nameAndMessage1">
+                      <span className="orang">{use.nickName}</span>
+                    </section>
+                  </div>
+                  <div className="nameAndMessage1">
+                    <button
+                      className={`user-btn ${
+                        group[use._id] ? "remove-btn" : "add-btn"
+                      }`}
+                      onClick={() => handleAdd(use)}
+                    >
+                      {group[use._id] ? "Remove User" : "Add User"}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No users found.</p>
+          )
+        ) : null}
 
         {list
           .filter((use) => use._id !== user._id)
