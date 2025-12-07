@@ -722,12 +722,7 @@ const Chat = ({ socket }) => {
             >
               📞 Voice Call
             </button>
-            <audio
-              ref={remoteAudioRef}
-              autoPlay
-              playsInline
-              style={{ display: "none" }}
-            />
+
             <button
               onClick={() => {
                 setShowCallOptions(false);
@@ -740,6 +735,13 @@ const Chat = ({ socket }) => {
           </div>
         </div>
       )}
+
+      <audio
+        ref={remoteAudioRef}
+        autoPlay
+        playsInline
+        style={{ display: "none" }}
+      />
       <section className="chatContaner">
         {[...messages, ...files]
           .sort((a, b) => new Date(a.time) - new Date(b.time))
