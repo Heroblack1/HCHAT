@@ -9,6 +9,7 @@ function Dashboard() {
   const [list, setList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [search, setSearch] = useState("");
+
   const navigate = useNavigate();
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -207,7 +208,7 @@ function Dashboard() {
           placeholder="Search Participants..."
           className="line"
           value={search}
-          onChange={handleChange}
+          onChange={handleChangee}
         />
 
         {search.length > 0 ? (
