@@ -126,16 +126,14 @@ function Dashboard() {
             </span>
           )}
         </div>
-
-        <input
-          type="search"
-          placeholder="Search Participants..."
-          className="line"
-          value={search}
-          onChange={handleChangee}
-        />
       </nav>
-
+      <input
+        type="search"
+        placeholder="Search Participants..."
+        className="line"
+        value={search}
+        onChange={handleChangee}
+      />
       <section className="baba">
         <div className="threeDots">
           <div className="babaLink">
