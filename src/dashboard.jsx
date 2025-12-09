@@ -135,7 +135,7 @@ function Dashboard() {
         <div className="threeDots">
           <div className="babaLink">
             <Link className="link" to={"/dashboard"}>
-              All members
+              Chats
             </Link>
             <Link className="link" to={"/dashboard/status"}>
               Status
