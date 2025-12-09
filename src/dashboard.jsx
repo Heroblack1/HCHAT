@@ -88,15 +88,17 @@ function Dashboard() {
 
   // getting the list of users from the data base
   useEffect(() => {
+    if (!user?._id) return; // ✅ prevents undefined request
+
     axios
       .get(`${API}/home/getUsers/${user._id}`)
       .then((response) => {
         setList(response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("User fetch error:", error);
       });
-  }, []);
+  }, [user]); // ✅ runs only when user loads
 
   useEffect(() => {
     const handleClickOutside = (event) => {
