@@ -213,39 +213,38 @@ function Dashboard() {
 
         {search.length > 0 ? (
           filteredUsers.length > 0 ? (
-            <div className="bar">
-              {filteredUsers.map((use) => (
-                <Link
-                  className="bars"
-                  key={use._id}
-                  to={"/dashboard/chat"}
-                  state={use}
-                >
-                  <div className="users">
-                    <div className="circ">
-                      {use.image ? (
-                        <img
-                          src={`${API}${use.image}`}
-                          className="imgs"
-                          alt="Profile"
-                        />
-                      ) : (
-                        <span className="material-symbols-outlined">
-                          photo_camera_front
-                        </span>
-                      )}
-                    </div>
-                    <section className="nameAndMessage">
-                      <span className="orang">{use.nickName}</span>
-                      <span className="whi">Your message has been sent</span>
-                    </section>
+            filteredUsers.map((use) => (
+              <Link
+                className="bar"
+                key={use._id}
+                to={"/dashboard/chat"}
+                state={use}
+              >
+                <div className="users">
+                  <div className="circ">
+                    {use.image ? (
+                      <img
+                        src={`${API}${use.image}`}
+                        className="imgs"
+                        alt="Profile"
+                      />
+                    ) : (
+                      <span className="material-symbols-outlined">
+                        {" "}
+                        photo_camera_front{" "}
+                      </span>
+                    )}
                   </div>
-                  <div className="timeAndNum">
-                    <div className="cir"></div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  <section className="nameAndMessage">
+                    <span className="orang">{use.nickName}</span>
+                    <span className="whi">Your message has been sent</span>
+                  </section>
+                </div>
+                <div className="timeAndNum">
+                  <div className="cir"></div>
+                </div>
+              </Link>
+            ))
           ) : (
             <p>No users found.</p>
           )
