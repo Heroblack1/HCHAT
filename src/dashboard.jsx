@@ -89,7 +89,7 @@ function Dashboard() {
   // getting the list of users from the data base
   useEffect(() => {
     axios
-      .get(`${API}/home/getUsers`)
+      .get(`${API}/home/getUsers/${user._id}`)
       .then((response) => {
         setList(response.data);
       })
@@ -237,10 +237,17 @@ function Dashboard() {
                   </div>
                   <section className="nameAndMessage">
                     <span className="orang">{use.nickName}</span>
-                    <span className="whi">Your message has been sent</span>
+                    <span className="whi">
+                      {use.lastMessage?.message || "No messages yet"}
+                    </span>
                   </section>
                 </div>
                 <div className="timeAndNum">
+                  <span className="whit">
+                    {use.lastMessage?.time
+                      ? new Date(use.lastMessage.time).toLocaleTimeString()
+                      : ""}
+                  </span>
                   <div className="cir"></div>
                 </div>
               </Link>
