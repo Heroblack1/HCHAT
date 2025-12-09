@@ -88,7 +88,7 @@ function Dashboard() {
 
   // getting the list of users from the data base
   useEffect(() => {
-    if (!user?._id) return; // ✅ prevents undefined request
+    if (!user?._id) return;
 
     axios
       .get(`${API}/home/getUsers/${user._id}`)
@@ -260,7 +260,7 @@ function Dashboard() {
         ) : null}
 
         {list
-          .filter((use) => use._id !== user._id)
+          .filter((use) => use._id !== user._id && use.lastMessage) // ✅ only users with messages
           .map((use) => (
             <Link
               className="bar"
@@ -284,10 +284,17 @@ function Dashboard() {
                 </div>
                 <section className="nameAndMessage">
                   <span className="orang">{use.nickName}</span>
-                  <span className="whi">Your message has been sent</span>
+                  <span className="whi">
+                    {use.lastMessage.message || "No messages yet"}
+                  </span>
                 </section>
               </div>
               <div className="timeAndNum">
+                <span className="whit">
+                  {use.lastMessage.time
+                    ? new Date(use.lastMessage.time).toLocaleTimeString()
+                    : ""}
+                </span>
                 <div className="cir"></div>
               </div>
             </Link>
