@@ -216,7 +216,7 @@ function Dashboard() {
             <div className="bar">
               {filteredUsers.map((use) => (
                 <Link
-                  className="bar"
+                  // className="bar"
                   key={use._id}
                   to={"/dashboard/chat"}
                   state={use}
