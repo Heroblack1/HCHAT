@@ -682,7 +682,7 @@ const Chat = ({ socket }) => {
           <span class="material-symbols-outlined">arrow_back</span>
           <div className="circ">
             {user.image ? (
-              <img src={`${API}${user.image}`} className="imgs" alt="Profile" />
+              <img src={`${API}${use.image}`} className="imgs" alt="Profile" />
             ) : (
               <span className="material-symbols-outlined">
                 photo_camera_front
