@@ -125,7 +125,7 @@ const Groups = () => {
       <div className="threeDots">
         <div className="babaLink">
           <Link className="link" to={"/dashboard"}>
-            Chats
+            All members
           </Link>
           <Link className="link" to={"/dashboard/status"}>
             Status

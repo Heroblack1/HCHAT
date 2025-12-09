@@ -513,7 +513,7 @@ const Status = () => {
       <div className="threeDotss">
         <div className="babaLink">
           <Link className="link" to={"/dashboard"}>
-            Chats
+            All members
           </Link>
           <Link className="link" to={"/dashboard/status"}>
             Status

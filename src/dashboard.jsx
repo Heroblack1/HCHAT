@@ -133,7 +133,7 @@ function Dashboard() {
         <div className="threeDots">
           <div className="babaLink">
             <Link className="link" to={"/dashboard"}>
-              Chats
+              All members
             </Link>
             <Link className="link" to={"/dashboard/status"}>
               Status
@@ -213,7 +213,7 @@ function Dashboard() {
 
         {search.length > 0 ? (
           filteredUsers.length > 0 ? (
-            <div>
+            <div className="bar">
               {filteredUsers.map((use) => (
                 <Link
                   className="bar"
