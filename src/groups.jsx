@@ -181,7 +181,7 @@ const Groups = () => {
 
         {groups.map((group) => (
           <Link
-            className="bar"
+            className="b"
             key={group._id}
             to="/dashboard/groupChat"
             state={{ group }}
