@@ -604,10 +604,10 @@ const Status = () => {
                     }}
                   >
                     <div className="status-circle">
-                      <img
+                      {/* <img
                         src={`${API}${u.image}`}
                         className="status-user-img"
-                      />
+                      /> */}
                       {theirStatuses.length > 0 && (
                         <div
                           className="status-ring"
