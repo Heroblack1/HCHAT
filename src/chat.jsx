@@ -675,6 +675,34 @@ const Chat = ({ socket }) => {
     };
   }, [socket, use]);
 
+  // ticks
+  useEffect(() => {
+    const markMessagesRead = async () => {
+      messages.forEach((msg) => {
+        if (msg.recipientId === user._id && msg.status !== "read") {
+          socket.current.emit("messageRead", {
+            messageId: msg._id,
+            senderId: msg.senderId,
+          });
+        }
+      });
+    };
+    markMessagesRead();
+  }, [messages, user, socket]);
+
+  // listening for tick updates
+  useEffect(() => {
+    const handleMessageStatus = ({ messageId, status }) => {
+      setMessages((prev) =>
+        prev.map((msg) => (msg._id === messageId ? { ...msg, status } : msg))
+      );
+    };
+
+    socket.current.on("messageStatus", handleMessageStatus);
+
+    return () => socket.current.off("messageStatus", handleMessageStatus);
+  }, []);
+
   return (
     <div className="bodyy1">
       <div className="bario">
