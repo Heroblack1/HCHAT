@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  /* display: flex;
-  height: 100vh; */
+  display: flex;
+  height: 100vh;
 }
 
 /* #root {
@@ -15,7 +15,7 @@ body {
 
 #root {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   text-align: center;
   background-color: white;
 }
@@ -231,10 +231,11 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 15vh;
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  padding: 12px 5%;
+  padding: 0 5%;
   box-sizing: border-box;
 }
 
@@ -242,7 +243,7 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  /* height: 15vh; */
+  height: 15vh;
   justify-content: space-between;
   align-items: center;
   align-content: center;
@@ -330,7 +331,7 @@ body {
   box-sizing: border-box;
   text-decoration: none;
   color: black;
-  /* position: fixed; */
+  position: fixed;
   top: 0;
 }
 
@@ -365,10 +366,9 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 15vh;
   background-color: black;
   margin-top: 250px;
-  z-index: 100;
 }
 
 .foota {
@@ -926,12 +926,11 @@ body {
 }
 
 .bodyy1 {
-  padding-top: 70px;
   width: 100vw;
   min-height: 100vh;
   background-color: black;
   overflow-y: auto;
-  padding-bottom: 70px;
+  padding-bottom: 15vh; /* add this line */
 }
 
 .email {
@@ -4940,12 +4939,4 @@ button:disabled {
 .sett.active {
   display: flex;
   pointer-events: auto;
-}
-.bar {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  position: relative !important;
-  z-index: 9999 !important;
-  height: auto !important;
 }
