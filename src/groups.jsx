@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Groups = () => {
-  const [groups, setGroups] = useState({});
+  const [groups, setGroups] = useState([]);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,6 +33,8 @@ const Groups = () => {
   }, [navigate]);
 
   useEffect(() => {
+    if (!menuOpen) return;
+
     const handleClickOutside = (event) => {
       if (
         menuRef.current &&
@@ -42,12 +44,13 @@ const Groups = () => {
         setMenuOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
+  }, [menuOpen]);
   // get list of all groups function
   // get list of all groups function
   // get list of all groups function
@@ -176,11 +179,11 @@ const Groups = () => {
         </div>
       </div>
 
-      {Object.values(groups).map((group) => (
+      {groups.map((group) => (
         <Link
           className="bar"
           key={group._id}
-          to={"/dashboard/groupChat"}
+          to="/dashboard/groupChat"
           state={{ group }}
         >
           <div className="users">
