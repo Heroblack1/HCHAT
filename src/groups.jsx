@@ -179,27 +179,29 @@ const Groups = () => {
         </div>
       </div>
 
-      {groups.map((group) => (
-        <Link
-          className="bar"
-          key={group._id}
-          to="/dashboard/groupChat"
-          state={{ group }}
-        >
-          <div className="users">
-            <div className="circ">
-              {/* You can add a group image here if available */}
+      <section className="baba">
+        {groups.map((group) => (
+          <Link
+            className="bar"
+            key={group._id}
+            to="/dashboard/groupChat"
+            state={{ group }}
+          >
+            <div className="users">
+              <div className="circ">
+                {/* You can add a group image here if available */}
+              </div>
+              <section className="nameAndMessage">
+                <span className="orang">{group.name}</span>
+                <span className="whi">Message sent successfully</span>
+              </section>
             </div>
-            <section className="nameAndMessage">
-              <span className="orang">{group.name}</span>
-              <span className="whi">Message sent successfully</span>
-            </section>
-          </div>
-          <div className="timeAndNum">
-            <div className="cir"></div>
-          </div>
-        </Link>
-      ))}
+            <div className="timeAndNum">
+              <div className="cir"></div>
+            </div>
+          </Link>
+        ))}
+      </section>
 
       <footer className="foot">
         <img src={logo} className="imgo" alt="" />
