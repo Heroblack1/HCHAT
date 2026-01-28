@@ -187,7 +187,9 @@ function Dashboard() {
                   <Link className="link1" to={"/dashboard/settings"}>
                     Settings
                   </Link>
-                  <button className="link1" onClick={handleLogout}>
+                </div>
+                <div>
+                  <button className="upx" onClick={handleLogout}>
                     Logout
                   </button>
                 </div>
