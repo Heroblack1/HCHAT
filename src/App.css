@@ -1115,6 +1115,7 @@ body {
   height: 15vh;
   background-color: black;
   margin-top: 250px;
+  z-index: 2;
 }
 
 .foota {
