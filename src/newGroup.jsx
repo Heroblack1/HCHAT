@@ -49,17 +49,46 @@ const NewGroup = () => {
   // get list of all users function
   // get list of all users function
   // get list of all users function
+  // getting the list of users from the data base
   useEffect(() => {
+    if (!user?._id) return;
+
     axios
-      .get(`${API}/home/getUsers`)
+      .get(`${API}/home/getUsers/${user._id}`)
       .then((response) => {
-        console.log(response.data);
         setList(response.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error("User fetch error:", error);
       });
+  }, [user]); // ✅ runs only when user loads
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API}/home/getUsers`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setList(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   // searching for users to add to group
   // searching for users to add to group
