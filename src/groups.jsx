@@ -124,83 +124,83 @@ const Groups = () => {
           {/* )} */}
         </div>
       </nav>
+      <section className="baba">
+        <div className="threeDots">
+          <div className="babaLink">
+            <Link className="link" to={"/dashboard"}>
+              Chats
+            </Link>
+            <Link className="link" to={"/dashboard/status"}>
+              Status
+            </Link>
+            <Link className="link" to={"/dashboard/groups"}>
+              Groups
+            </Link>
+            <Link className="link" to={"/dashboard/broadcasts"}>
+              Broadcasts
+            </Link>
+          </div>
+          <div className="menuContainer" ref={menuRef}>
+            <button
+              ref={buttonRef}
+              className="button"
+              onClick={() => setMenuOpen((prev) => !prev)}
+            >
+              <span className="material-symbols-outlined" id="whiteIcon">
+                more_vert
+              </span>
+            </button>
 
-      <div className="threeDots">
-        <div className="babaLink">
-          <Link className="link" to={"/dashboard"}>
-            Chats
-          </Link>
-          <Link className="link" to={"/dashboard/status"}>
-            Status
-          </Link>
-          <Link className="link" to={"/dashboard/groups"}>
-            Groups
-          </Link>
-          <Link className="link" to={"/dashboard/broadcasts"}>
-            Broadcasts
-          </Link>
+            {menuOpen && (
+              <section className="sett active">
+                <div>
+                  <input type="file" id="file-input" onChange={handleChange} />
+                  <label htmlFor="file-input" className="file-label">
+                    Profile picture
+                  </label>
+                </div>
+                <div>
+                  <Link className="link1" to={"/dashboard/newGroup"}>
+                    New Group
+                  </Link>
+                </div>
+                <div>
+                  <Link className="link1" to={"/dashboard/newBroadcast"}>
+                    New Broadcast
+                  </Link>
+                </div>
+                <div>
+                  <Link className="link1" to={"/dashboard/settings"}>
+                    Settings
+                  </Link>
+                </div>
+              </section>
+            )}
+          </div>
         </div>
-        <div className="menuContainer" ref={menuRef}>
-          <button
-            ref={buttonRef}
-            className="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
+
+        {groups.map((group) => (
+          <Link
+            className="bar"
+            key={group._id}
+            to="/dashboard/groupChat"
+            state={{ group }}
           >
-            <span className="material-symbols-outlined" id="whiteIcon">
-              more_vert
-            </span>
-          </button>
-
-          {menuOpen && (
-            <section className="sett active">
-              <div>
-                <input type="file" id="file-input" onChange={handleChange} />
-                <label htmlFor="file-input" className="file-label">
-                  Profile picture
-                </label>
+            <div className="users">
+              <div className="circ">
+                {/* You can add a group image here if available */}
               </div>
-              <div>
-                <Link className="link1" to={"/dashboard/newGroup"}>
-                  New Group
-                </Link>
-              </div>
-              <div>
-                <Link className="link1" to={"/dashboard/newBroadcast"}>
-                  New Broadcast
-                </Link>
-              </div>
-              <div>
-                <Link className="link1" to={"/dashboard/settings"}>
-                  Settings
-                </Link>
-              </div>
-            </section>
-          )}
-        </div>
-      </div>
-
-      {groups.map((group) => (
-        <Link
-          className="bar"
-          key={group._id}
-          to="/dashboard/groupChat"
-          state={{ group }}
-        >
-          <div className="users">
-            <div className="circ">
-              {/* You can add a group image here if available */}
+              <section className="nameAndMessage">
+                <span className="orang">{group.name}</span>
+                <span className="whi">Message sent successfully</span>
+              </section>
             </div>
-            <section className="nameAndMessage">
-              <span className="orang">{group.name}</span>
-              <span className="whi">Message sent successfully</span>
-            </section>
-          </div>
-          <div className="timeAndNum">
-            <div className="cir"></div>
-          </div>
-        </Link>
-      ))}
-
+            <div className="timeAndNum">
+              <div className="cir"></div>
+            </div>
+          </Link>
+        ))}
+      </section>
       <footer className="foot">
         <img src={logo} className="imgo" alt="" />
       </footer>
