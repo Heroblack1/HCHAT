@@ -252,6 +252,7 @@ body {
   text-decoration: none;
   color: black;
   top: 0;
+  z-index: 5;
 }
 
 /* add-butons styles start */
@@ -4913,7 +4914,7 @@ button:disabled {
 .bario,
 .foota,
 .foot {
-  z-index: 10;
+  z-index: 1;
 }
 
 .baba {
