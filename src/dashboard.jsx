@@ -116,6 +116,12 @@ function Dashboard() {
     };
   }, []);
 
+  // logout
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // remove token
+    navigate("/login"); // redirect to login page
+  };
+
   return (
     <div className="bodyy1">
       <nav className="bard">
@@ -181,6 +187,9 @@ function Dashboard() {
                   <Link className="link1" to={"/dashboard/settings"}>
                     Settings
                   </Link>
+                  <button className="link1" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </div>
               </section>
             )}
