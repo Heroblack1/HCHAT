@@ -73,7 +73,7 @@ const Groups = () => {
             const filteredGroups = groups.filter((group) =>
               group.members.includes(userId),
             );
-            console.log(groups);
+            console.log(groups[0]._id);
 
             console.log(filteredGroups);
             setGroups(filteredGroups);
