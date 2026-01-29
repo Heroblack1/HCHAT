@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Groups = () => {
+  const [user, setUser] = useState({});
   const [groups, setGroups] = useState([]);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -25,6 +26,7 @@ const Groups = () => {
       })
       .then((response) => {
         // console.log(response);
+        setUser(response.data.user);
       })
       .catch((error) => {
         console.error(error);
@@ -54,33 +56,54 @@ const Groups = () => {
   // get list of all groups function
   // get list of all groups function
   // get list of all groups function
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API}/home/getGroups`)
+  //     .then((response) => {
+  //       const groups = response.data;
+  //       const token = localStorage.getItem("token");
+  //       axios
+  //         .get(`${API}/home/dashboard`, {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         })
+  //         .then((userResponse) => {
+  //           const userId = userResponse.data.user._id;
+  //           const filteredGroups = groups.filter((group) =>
+  //             group.members.includes(userId),
+  //           );
+  //           console.log(groups);
+
+  //           console.log(filteredGroups);
+  //           setGroups(filteredGroups);
+  //         });
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
   useEffect(() => {
+    if (!user?._id) return; // wait until user is loaded
+
     axios
       .get(`${API}/home/getGroups`)
       .then((response) => {
-        const groups = response.data;
-        const token = localStorage.getItem("token");
-        axios
-          .get(`${API}/home/dashboard`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((userResponse) => {
-            const userId = userResponse.data.user._id;
-            const filteredGroups = groups.filter((group) =>
-              group.members.includes(userId)
-            );
-            console.log(groups);
+        const allGroups = response.data;
 
-            console.log(filteredGroups);
-            setGroups(filteredGroups);
-          });
+        const filteredGroups = allGroups.filter((group) =>
+          group.members.some(
+            (memberId) => memberId.toString() === user._id.toString(),
+          ),
+        );
+
+        setGroups(filteredGroups);
+        console.log(filteredGroups);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [user._id]);
 
   // setting of the profile picture
   const handleChange = async (e) => {
